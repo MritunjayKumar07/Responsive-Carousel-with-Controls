@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Carousel with Controls</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        place-items: center;
+      }
+      .carousel-container {
+        width: 100vw;
+        height: 100vw;
+        overflow: hidden;
+        position: relative;
+        margin: 0 auto;
+        /* padding: 1em; */
+      }
+
+      .carousel-images {
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+
+      .carousel-image {
+        width: calc(100% / 3);
+        max-width: 100%;
+        height: auto;
+      }
+      img {
+        border-radius: 12px;
+        padding: 2px;
+      }
+
+      .control-button {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.5);
+        border: none;
+        padding: 5px;
+        z-index: 2;
+      }
+
+      .prev-button {
+        top: 20px;
+        right: 50px;
+        font-size: xx-large;
+      }
+
+      .next-button {
+        top: 20px;
+        right: 10px;
+        font-size: xx-large;
+      }
+      h2 {
+        color: black;
+        font-size: 22px;
+        font-weight: 500;
+        text-decoration: underline;
+      }
+      .smallScreen {
+        top: 30px;
+        right: 10px;
+        display: none;
+        font-size: 22px;
+        background: #000;
+        border-radius: 25px;
+        color: antiquewhite;
+        font-weight: 500;
+        padding: 8px;
+      }
+      @media (max-width: 768px) {
+        .bigScreen {
+          display: none;
+        }
+        .smallScreen {
+          display: block;
+        }
+        .carousel-images {
+          overflow-x: scroll;
+          width: auto !important;
+          scroll-snap-type: x mandatory;
+        }
+        .carousel-image {
+          scroll-snap-align: start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="carousel-container">
+      <h2 class="title">Carousel</h2>
+      <div class="carousel-images">
+        <img
+          class="carousel-image"
+          src="https://us.123rf.com/450wm/photochicken/photochicken2008/photochicken200800065/153425631-pritty-jeune-photographe-asiatique-fille-adolescente-voyage-avec-appareil-photo-prendre-une-photo-de.jpg"
+          alt="Image 1"
+        />
+        <img
+          class="carousel-image"
+          src="https://photocopyrightlawdotcom.files.wordpress.com/2017/01/photographer3cc0.jpg"
+          alt="Image 2"
+        />
+        <img
+          class="carousel-image"
+          src="https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg"
+          alt="Image 3"
+        />
+        <img
+          class="carousel-image"
+          src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736881_640.jpg"
+          alt="Image 1"
+        />
+        <img
+          class="carousel-image"
+          src="https://cdn.pixabay.com/photo/2019/03/09/02/12/eyes-4043559_1280.jpg"
+          alt="Image 2"
+        />
+        <img
+          class="carousel-image"
+          src="https://us.123rf.com/450wm/shushanto/shushanto2209/shushanto220900703/191842443-destruction-of-planets-concept-art-illustration-background-image.jpg"
+          alt="Image 3"
+        />
+        <img
+          class="carousel-image"
+          src="https://png.pngtree.com/background/20231101/original/pngtree-3d-rendered-moon-crater-with-sun-and-stellar-backdrop-picture-image_5838371.jpg"
+          alt="Image 1"
+        />
+        <img
+          class="carousel-image"
+          src="https://www.befunky.com/images/prismic/1f427434-7ca0-46b2-b5d1-7d31843859b6_funky-focus-red-flower-field-after.jpeg?auto=avif,webp&format=jpg"
+          alt="Image 2"
+        />
+        <img
+          class="carousel-image"
+          src="https://imgv3.fotor.com/images/blog-cover-image/Image-Upscaler-2.jpg"
+          alt="Image 3"
+        />
+      </div>
+
+      <button
+        class="control-button prev-button bigScreen"
+        onclick="prevSlide()"
+      >
+        ⬅️
+      </button>
+      <button
+        class="control-button next-button bigScreen"
+        onclick="nextSlide()"
+      >
+        ➡️
+      </button>
+      <button
+        class="control-button next-button smallScreen"
+        onclick="nextSlide()"
+      >
+        View more
+      </button>
+    </div>
+
+    <script>
+      let currentIndex = 0;
+      const slides = document.querySelectorAll(".carousel-image");
+      const totalSlides = slides.length;
+
+      function showSlide(index) {
+        const offset = -(index * slides[0].offsetWidth);
+        document.querySelector(
+          ".carousel-images"
+        ).style.transform = `translateX(${offset}px)`;
+      }
+
+      function nextSlide() {
+        if (currentIndex + 3 < totalSlides) {
+          currentIndex++;
+          showSlide(currentIndex);
+        }
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) {
+          currentIndex--;
+          showSlide(currentIndex);
+        }
+      }
+
+      // Show initial slides
+      showSlide(currentIndex);
+    </script>
+  </body>
+</html>
